@@ -4,6 +4,7 @@ import android.content.Context
 import android.util.Log
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
+import com.msukno.gameapprawg.data.game.GameRepository
 import com.msukno.gameapprawg.data.game_image.GameImageRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -11,6 +12,7 @@ import java.io.File
 
 private const val TAG = "ClearCacheWorker"
 class ClearCacheWorker(
+    private val gameRepository: GameRepository,
     private val gameImageRepository: GameImageRepository,
     context: Context,
     params: WorkerParameters
@@ -43,6 +45,7 @@ class ClearCacheWorker(
                     }
                 }
                 gameImageRepository.clearCache()
+                gameRepository.clearAll()
                 makeStatusNotification("Done.", applicationContext)
                 Result.success()
             }catch (throwable: Throwable){

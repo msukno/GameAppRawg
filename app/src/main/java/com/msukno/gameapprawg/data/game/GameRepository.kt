@@ -18,11 +18,6 @@ interface GameRepository {
     suspend fun getGamesSize(): Int
     suspend fun insert(games: List<Game>)
     suspend fun clearAll()
-    suspend fun countGamesRatingSortKey(): Int
-    suspend fun countGamesNameSortKey(): Int
-    suspend fun countGamesWithSameRatingAndLowerId(gameId: Int): Int
-    suspend fun countGamesWithHigherRating(gameId: Int): Int
-    suspend fun getBatch(offset: Int, size: Int): List<Game>
 }
 
 class LocalGameRepository(val gameDao: GameDao): GameRepository {
@@ -46,17 +41,4 @@ class LocalGameRepository(val gameDao: GameDao): GameRepository {
     override suspend fun insert(games: List<Game>) = gameDao.insertAll(games)
 
     override suspend fun clearAll() = gameDao.clearData()
-
-    override suspend fun countGamesRatingSortKey(): Int = gameDao.countGamesRatingSortKey()
-
-    override suspend fun countGamesNameSortKey(): Int = gameDao.countGamesNameSortKey()
-
-    override suspend fun countGamesWithHigherRating(gameId: Int): Int =
-        gameDao.countGamesWithHigherRating(gameId)
-
-    override suspend fun countGamesWithSameRatingAndLowerId(gameId: Int): Int =
-        gameDao.countGamesWithSameRatingAndLowerId(gameId)
-
-    override suspend fun getBatch(offset: Int, size: Int): List<Game> =
-        gameDao.getBatch(offset, size)
 }

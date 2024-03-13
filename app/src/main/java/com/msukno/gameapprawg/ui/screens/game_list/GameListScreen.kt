@@ -443,7 +443,6 @@ fun DisplayImageFromWeb(url: String, type: ImageType = ImageType.background) {
         modifier.height(dimensionResource(id = R.dimen.back_image_height))
     else modifier.height(dimensionResource(id = R.dimen.screen_image_height))
 
-    Log.d("mytag", "Displaying image from the web")
     AsyncImage(
         model = ImageRequest.Builder(LocalContext.current)
             .data(url)
@@ -461,8 +460,6 @@ fun DisplayImageFromStorage(path: String, type: ImageType = ImageType.background
     val finalModifier = if (type == ImageType.background)
         modifier.height(dimensionResource(id = R.dimen.back_image_height))
     else modifier.height(dimensionResource(id = R.dimen.screen_image_height))
-
-    Log.d("GameListScreen", "Displaying image from internal storage")
     Image(
         painter = rememberAsyncImagePainter(
             model = ImageRequest.Builder(LocalContext.current)

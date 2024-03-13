@@ -19,10 +19,4 @@ object HelperFunctions{
         val formatter = DateTimeFormatter.ofPattern("yy-MM-dd")
         return currentDateTime.format(formatter)
     }
-
-    fun appendKeys(sortKeys: List<GameSortKey>): List<GameSortKey>{
-        val appended = sortKeys.toMutableList()
-        GameSortKey.entries.filter { it !in sortKeys }.forEach { appended.add(it) }
-        return  appended
-    }
 }

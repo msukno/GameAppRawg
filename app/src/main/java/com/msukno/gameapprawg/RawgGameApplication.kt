@@ -33,6 +33,7 @@ class RawgGameApplication: Application(), Configuration.Provider {
             container.imageDownloader
         ))
         factory.addFactory(ClearWorkerFactory(
+            container.gameRepository,
             container.gameImageRepository
         ))
         return Configuration.Builder()

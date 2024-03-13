@@ -73,7 +73,10 @@ class GenreWorkerFactory(
     }
 }
 
-class ClearWorkerFactory(private val gameImageRepository: GameImageRepository) : WorkerFactory(){
+class ClearWorkerFactory(
+    private val gameRepository: GameRepository,
+    private val gameImageRepository: GameImageRepository
+) : WorkerFactory(){
     override fun createWorker(
         appContext: Context,
         workerClassName: String,
@@ -82,6 +85,7 @@ class ClearWorkerFactory(private val gameImageRepository: GameImageRepository) :
         return when(workerClassName){
             ClearCacheWorker::class.java.name -> {
                 ClearCacheWorker(
+                    gameRepository,
                     gameImageRepository,
                     appContext,
                     workerParameters
