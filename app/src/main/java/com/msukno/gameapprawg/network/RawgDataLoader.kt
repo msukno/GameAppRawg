@@ -106,7 +106,7 @@ class RawgDataLoader(private val rawgRepository: RawgRepository){
                     ordering = "-rating", searchPrecise = true, searchExact = true, search = query
                 )
             }
-            //If there is no internet access or if error occurs gameResponse==null
+            //gameResponse==null if there is no internet access or if an error occurs
             gameResponse?.let { response ->
                 pagesSearched++
                 val validGames = response.results.filter {

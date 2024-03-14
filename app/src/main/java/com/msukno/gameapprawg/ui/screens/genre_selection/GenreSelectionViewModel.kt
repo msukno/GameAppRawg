@@ -58,7 +58,7 @@ class GenreSelectionViewModel(
                 imagePathsCache = images.associateBy { it.genreId }
             }
 
-            // Fetch all genres from the RAWG API and update cache if new genres are found
+            // Fetch all genres from the RAWG API and update the cache with fresh data
             val genres = networkDataLoader.fetchAllGenres(startPage = "1")
             if(genres.isNotEmpty()){
                 genreRepository.insert(genres)

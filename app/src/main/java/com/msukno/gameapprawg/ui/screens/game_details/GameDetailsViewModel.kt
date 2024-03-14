@@ -28,7 +28,7 @@ enum class GameLocation{
 }
 
 /**
- * ViewModel for the GameDetails screen. It fetches game details from the local database and the RAWG API,
+ * ViewModel for the GameDetails screen. It fetches game details from the local database and the RAWG,
  * and provides them to the UI for user viewing. The ViewModel also manages the UI state of the game details
  * and a cache of game images.
  */
@@ -77,7 +77,7 @@ class GameDetailsViewModel(
                     updateUiState(gameInGames.toGameDetails(), favorite)
                 }
             }
-            // Get fresh game details from the RAWG API and update the state if success
+            // Get fresh game details from the RAWG and update the state if success
             val gameDetails: GameDetails? = dataLoader.fetchGameDetails(gameId)
             gameDetails?.let { updateUiState(it, favorite) }
             // Update the appropriate cache table if fresh data is fetched

@@ -34,9 +34,8 @@ enum class ImageType{
 }
 
 /**
- * ViewModel for the GameList screen. It fetches games from the local database and the RAWG API,
- * and provides them to the UI for user selection. The games can be sorted by rating and release date.
- * The ViewModel also manages a cache of game images.
+ * ViewModel for the GameList screen. It fetches games from the local database and provides them
+ * to the UI for user selection. The games can be sorted by rating and release date.
  */
 class GameListViewModel(
     savedStateHandle: SavedStateHandle,
@@ -82,7 +81,6 @@ class GameListViewModel(
 
     /**
      * Updates the UI state with the new parameters for fetching and sorting games.
-     * This function is called when the user changes the sorting criteria.
      */
     fun updateUiState(params: GameListParams){
         uiState = GameListUiState(

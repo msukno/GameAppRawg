@@ -53,7 +53,7 @@ class GameSearchViewModel(
     }
 }
 
-// Data class to hold the state of the UI, which includes the search results.
+// Holds the state of the UI, which includes the search results.
 sealed interface GameSearchUiState {
     object Searching : GameSearchUiState
     data class Default(val searchResult: List<Game> = listOf()) : GameSearchUiState

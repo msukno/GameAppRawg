@@ -17,8 +17,8 @@ import java.lang.IllegalArgumentException
 
 @OptIn(ExperimentalPagingApi::class)
 /**
- * UI state for the GameList screen. It uses a RemoteMediator for paginating data from the RAWG API,
- * and a PagingSource for fetching data from the local database. The games can be sorted by rating and release date.
+ * UI state for the GameList screen. It uses a RemoteMediator for fetching data from the RAWG,
+ * and a PagingSource object returned by GameRepository for paging from the local database.
  */
 class GameListUiState(
     rawgRepository: RawgRepository,

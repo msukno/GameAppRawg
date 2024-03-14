@@ -124,6 +124,7 @@ class GameCacheWorker(
 
     private fun saveImage(bitmap: Bitmap, filename: String): String? {
         return try {
+            // all images are resized to width = MIN_IMAGE_SIZE
             val resizedBitmap = Bitmap.createScaledBitmap(
                 bitmap, MIN_IMAGE_SIZE, MIN_IMAGE_SIZE * bitmap.height / bitmap.width, true
             )

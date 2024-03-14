@@ -15,7 +15,7 @@ import kotlinx.coroutines.launch
 
 /**
  * ViewModel for the GameFavorite screen. It fetches favorite games from the local database,
- * and provides them to the UI for user viewing. The ViewModel also manages the UI state of the favorite games.
+ * and provides them to the UI for user viewing.
  */
 class GameFavoriteViewModel(
     gameFavoriteRepository: GameFavoriteRepository,
@@ -28,10 +28,8 @@ class GameFavoriteViewModel(
 
     var imagePathsCache: Map<Int, GameImages> = mapOf()
 
-    /**
-     * UI state for the favorite games. It fetches all favorite games from the local database and
-     * maps them to the UI state.
-     */
+
+     // Fetch all favorite games from the local database and map them to the UI state.
     val favGamesUiState: StateFlow<GameFavoriteUiState> = gameFavoriteRepository.getAllGamesStream()
         .map { GameFavoriteUiState(it) }
         .stateIn(
