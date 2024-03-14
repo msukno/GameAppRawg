@@ -9,7 +9,6 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.windowsizeclass.ExperimentalMaterial3WindowSizeClassApi
 import androidx.compose.material3.windowsizeclass.calculateWindowSizeClass
 import androidx.compose.ui.Modifier
-import com.msukno.gameapprawg.ui.adaptable_screen.AdaptEntryPoint
 import com.msukno.gameapprawg.ui.theme.GameAppRawgTheme
 
 class MainActivity : ComponentActivity() {
@@ -25,7 +24,7 @@ class MainActivity : ComponentActivity() {
                         color = MaterialTheme.colorScheme.background
                 ) {
                     val windowSize = calculateWindowSizeClass(this)
-                    AdaptEntryPoint(windowSize = windowSize.widthSizeClass)
+                    GameApp(windowSize = windowSize.widthSizeClass)
                 }
             }
         }

@@ -1,6 +1,5 @@
 package com.msukno.gameapprawg.ui.navigation.adaptable
 
-import android.util.Log
 import androidx.compose.runtime.Composable
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
@@ -11,7 +10,6 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.msukno.gameapprawg.AppViewModelProvider
 import com.msukno.gameapprawg.ui.navigation.EntryPointDestination
-import com.msukno.gameapprawg.ui.navigation.NavigationDestination
 import com.msukno.gameapprawg.ui.screens.app_settings.AppSettingsDestination
 import com.msukno.gameapprawg.ui.screens.app_settings.AppSettingsScreen
 import com.msukno.gameapprawg.ui.screens.app_settings.AppSettingsViewModel

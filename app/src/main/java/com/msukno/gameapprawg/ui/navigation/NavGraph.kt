@@ -36,6 +36,7 @@ object EntryPointDestination: NavigationDestination{
 
 @Composable
 fun NavGraph(
+    startDestination: String,
     navController: NavHostController,
     settingsViewModel: AppSettingsViewModel = viewModel(factory = AppViewModelProvider.Factory),
     modifier: Modifier = Modifier,
@@ -46,21 +47,7 @@ fun NavGraph(
         modifier = modifier
     ) {
         composable(route = EntryPointDestination.route){
-            when(val state = settingsViewModel.paramsState) {
-                AppParamsUiState.Loading -> LoadingScreen()
-                is AppParamsUiState.Complete -> {
-                    val params = state.params
-                    val idKey: String = checkNotNull(params[GENRE_ID_KEY])
-                    val nameKey: String = checkNotNull(params[GENRE_NAME_KEY])
-                    try {
-                        val genreId = idKey.toInt()
-                        navController.navigate("${GameListDestination.route}/$genreId/$nameKey")
-                    }catch (throwable: Throwable){
-                        Log.d("EntryPointDestination", "Cant convert genreId to integer; go to genre selection ")
-                        navController.navigate(GenreSelectionDestination.route)
-                    }
-                }
-            }
+            navController.navigate(startDestination)
         }
 
         composable(route = GenreSelectionDestination.route){

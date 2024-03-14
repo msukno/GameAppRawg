@@ -39,9 +39,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import androidx.navigation.compose.rememberNavController
-import com.msukno.gameapprawg.AppBarContent
-import com.msukno.gameapprawg.AppViewModelProvider
+import androidx.navigation.compose.rememberNavController import com.msukno.gameapprawg.AppViewModelProvider
 import com.msukno.gameapprawg.R
 import com.msukno.gameapprawg.ui.navigation.EntryPointDestination
 import com.msukno.gameapprawg.ui.navigation.NavigationDestination
