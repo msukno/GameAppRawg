@@ -52,9 +52,9 @@ fun GameApp(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun GameAppBar(
+    containsSettings: Boolean = true,
     navigateToSettings: () -> Unit = {}
 ) {
-
     TopAppBar(
         colors = TopAppBarDefaults.topAppBarColors(
             containerColor = MaterialTheme.colorScheme.primaryContainer,
@@ -97,16 +97,18 @@ fun GameAppBar(
                         .padding(4.dp)
                 )
                 //Spacer(modifier = Modifier.width(20.dp))
-                IconButton(
-                    onClick = { navigateToSettings() },
-                    modifier = Modifier.padding(0.dp)
-                ) {
-                    Icon(
-                        imageVector = Icons.Filled.Settings,
-                        contentDescription = "",
-                        tint = Color.White,
-                        modifier = Modifier.size(30.dp)
-                    )
+                if (containsSettings){
+                    IconButton(
+                        onClick = { navigateToSettings() },
+                        modifier = Modifier.padding(0.dp)
+                    ) {
+                        Icon(
+                            imageVector = Icons.Filled.Settings,
+                            contentDescription = "",
+                            tint = Color.White,
+                            modifier = Modifier.size(30.dp)
+                        )
+                    }
                 }
             }
         }
