@@ -58,6 +58,7 @@ object GameDetailsDestination: NavigationDestination{
 fun GameDetailsScreen(
     viewModel: GameDetailsViewModel = viewModel(factory = AppViewModelProvider.Factory),
     navigateBack: () -> Unit = {},
+    showBackButton: Boolean = true
 ) {
     val uiState = viewModel.uiState
     val imageCache = viewModel.imagePathsCache
@@ -69,7 +70,8 @@ fun GameDetailsScreen(
             favorite,
             buttonEnabled = enabled,
             onClickBack = navigateBack,
-            onClickAddOrRemove = { viewModel.updateFavorites() }
+            onClickAddOrRemove = { viewModel.updateFavorites() },
+            showBackButton = showBackButton
         )
         }
     ){ innerPadding ->
@@ -106,31 +108,32 @@ fun DetailsScreenBotBar(
     favorite: Boolean,
     buttonEnabled: Boolean,
     onClickBack: () -> Unit = {},
-    onClickAddOrRemove: () -> Unit = {}
+    onClickAddOrRemove: () -> Unit = {},
+    showBackButton: Boolean = true
 ){
 
     Row(
         horizontalArrangement = Arrangement.SpaceBetween,
         modifier = Modifier
-            .padding(dimensionResource(id = R.dimen.padding_small))
             .padding(
-                start = dimensionResource(id = R.dimen.padding_extra_small),
-                end = dimensionResource(id = R.dimen.padding_extra_small)
-            )
+                bottom = dimensionResource(id = R.dimen.padding_extra_small),
+                start = dimensionResource(id = R.dimen.padding_large),
+                end = dimensionResource(id = R.dimen.padding_large))
     ){
-
-        OutlinedButton(
-            onClick = { onClickBack() },
-            modifier = Modifier
-                .weight(1f)
-                .padding(dimensionResource(id = R.dimen.button_padding_small))
-        ) {
-            Text(
-                text = "Back",
-                style = MaterialTheme.typography.labelSmall
-            )
+        if (showBackButton){
+            OutlinedButton(
+                onClick = { onClickBack() },
+                modifier = Modifier
+                    .weight(1f)
+                    .padding(dimensionResource(id = R.dimen.button_padding_small))
+            ) {
+                Text(
+                    text = "Back",
+                    style = MaterialTheme.typography.labelSmall
+                )
+            }
+            Spacer(modifier = Modifier.width(dimensionResource(id = R.dimen.padding_extra_small)))
         }
-        Spacer(modifier = Modifier.width(dimensionResource(id = R.dimen.padding_extra_small)))
 
         OutlinedButton(
             onClick = { onClickAddOrRemove() },

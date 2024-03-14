@@ -420,7 +420,10 @@ fun GameListBotBar(
     Row(
         horizontalArrangement = Arrangement.SpaceBetween,
         modifier = Modifier
-            .padding(bottom = 6.dp, start = 48.dp, end = 48.dp)
+            .padding(
+                bottom = dimensionResource(id = R.dimen.padding_extra_small),
+                start = dimensionResource(id = R.dimen.padding_large),
+                end = dimensionResource(id = R.dimen.padding_large))
     ){
         OutlinedButton(
             onClick = { onClickFavorite() },

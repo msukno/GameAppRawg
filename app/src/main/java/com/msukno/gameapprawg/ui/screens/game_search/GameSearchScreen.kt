@@ -51,7 +51,8 @@ object GameSearchDestination: NavigationDestination{
 fun GameSearchScreen(
     viewModel: GameSearchViewModel = viewModel(factory = AppViewModelProvider.Factory),
     onGameSelect: (Int) -> Unit = {},
-    navigateBack: () -> Unit = {}
+    navigateBack: () -> Unit = {},
+    showBackIcon: Boolean = true
 ){
     val uiState = viewModel.uiState.collectAsState()
     val focusRequester = remember { FocusRequester() }
@@ -61,12 +62,18 @@ fun GameSearchScreen(
     Column(
         modifier = Modifier.padding(top = dimensionResource(id = R.dimen.padding_small))
     ) {
-        Row(verticalAlignment = Alignment.CenterVertically) {
-            IconButton(onClick = { navigateBack() }) {
-                Icon(
-                    imageVector = Icons.Filled.ArrowBack,
-                    contentDescription = ""
-                )
+
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            modifier = Modifier.padding(dimensionResource(id = R.dimen.padding_small))
+        ) {
+            if (showBackIcon){
+                IconButton(onClick = { navigateBack() }) {
+                    Icon(
+                        imageVector = Icons.Filled.ArrowBack,
+                        contentDescription = ""
+                    )
+                }
             }
 
             Text(

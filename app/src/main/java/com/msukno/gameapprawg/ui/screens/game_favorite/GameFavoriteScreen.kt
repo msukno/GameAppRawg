@@ -37,7 +37,8 @@ object GameFavoriteDestination: NavigationDestination {
 fun GameFavoriteScreen(
     viewModel: GameFavoriteViewModel = viewModel(factory = AppViewModelProvider.Factory),
     onGameSelect: (Int) -> Unit = {},
-    navigateBack: () -> Unit = {}
+    navigateBack: () -> Unit = {},
+    showBackIcon: Boolean = true
 ){
     val uiState = viewModel.favGamesUiState.collectAsState()
     val games = uiState.value.games
@@ -48,12 +49,13 @@ fun GameFavoriteScreen(
             modifier = Modifier.padding(dimensionResource(id = R.dimen.padding_small))
 
         ){
-
-            IconButton(onClick = { navigateBack() }) {
-                Icon(
-                    imageVector = Icons.Filled.ArrowBack,
-                    contentDescription = ""
-                )
+            if (showBackIcon){
+                IconButton(onClick = { navigateBack() }) {
+                    Icon(
+                        imageVector = Icons.Filled.ArrowBack,
+                        contentDescription = ""
+                    )
+                }
             }
 
             Text(

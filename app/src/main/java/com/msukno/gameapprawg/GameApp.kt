@@ -61,58 +61,66 @@ fun GameAppBar(
             titleContentColor = MaterialTheme.colorScheme.onSurface,
         ),
         title = {
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.SpaceBetween
-            ) {
-                Image(
-                    modifier = Modifier
-                        .size(dimensionResource(id = R.dimen.icon_size_large))
-                        .padding(dimensionResource(id = R.dimen.padding_small)),
-                    painter = painterResource(R.drawable.warlord_helmet_trans),
-
-                    contentDescription = null
-                )
-                val text1 = stringResource(R.string.app_title1)
-                val text2 = stringResource(R.string.app_title2)
-                val text3 = stringResource(R.string.app_title3)
-
-                val annotatedString = buildAnnotatedString {
-                    withStyle(style = SpanStyle()) {
-                        append(text1)
-                    }
-                    withStyle(style = SpanStyle().copy(color = MaterialTheme.colorScheme.surfaceTint)) {
-                        append(text2)
-                    }
-                    withStyle(style = SpanStyle()) {
-                        append(text3)
-                    }
-                }
-                Text(
-                    text = annotatedString,
-                    //text = stringResource(R.string.app_title),
-                    style = MaterialTheme.typography.displayLarge,
-                    modifier = Modifier
-                        .weight(5f)
-                        .padding(4.dp)
-                )
-                //Spacer(modifier = Modifier.width(20.dp))
-                if (containsSettings){
-                    IconButton(
-                        onClick = { navigateToSettings() },
-                        modifier = Modifier.padding(0.dp)
-                    ) {
-                        Icon(
-                            imageVector = Icons.Filled.Settings,
-                            contentDescription = "",
-                            tint = Color.White,
-                            modifier = Modifier.size(30.dp)
-                        )
-                    }
-                }
-            }
+            AppBarContent(containsSettings, navigateToSettings)
         }
     )
+}
+
+@Composable
+fun AppBarContent(
+    containsSettings: Boolean,
+    onClickSettings: () -> Unit = {},
+){
+    Row(
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.SpaceBetween
+    ) {
+        Image(
+            modifier = Modifier
+                .size(dimensionResource(id = R.dimen.icon_size_large))
+                .padding(dimensionResource(id = R.dimen.padding_small)),
+            painter = painterResource(R.drawable.warlord_helmet_trans),
+
+            contentDescription = null
+        )
+        val text1 = stringResource(R.string.app_title1)
+        val text2 = stringResource(R.string.app_title2)
+        val text3 = stringResource(R.string.app_title3)
+
+        val annotatedString = buildAnnotatedString {
+            withStyle(style = SpanStyle()) {
+                append(text1)
+            }
+            withStyle(style = SpanStyle().copy(color = MaterialTheme.colorScheme.surfaceTint)) {
+                append(text2)
+            }
+            withStyle(style = SpanStyle()) {
+                append(text3)
+            }
+        }
+        Text(
+            text = annotatedString,
+            //text = stringResource(R.string.app_title),
+            style = MaterialTheme.typography.displayLarge,
+            modifier = Modifier
+                .weight(5f)
+                .padding(4.dp)
+        )
+        //Spacer(modifier = Modifier.width(20.dp))
+        if (containsSettings){
+            IconButton(
+                onClick = { onClickSettings() },
+                modifier = Modifier.padding(0.dp)
+            ) {
+                Icon(
+                    imageVector = Icons.Filled.Settings,
+                    contentDescription = "",
+                    tint = Color.White,
+                    modifier = Modifier.size(30.dp)
+                )
+            }
+        }
+    }
 }
 
 
