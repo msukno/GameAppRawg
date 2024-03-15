@@ -5,8 +5,8 @@ import com.msukno.gameapprawg.model.GameFavorite
 import kotlinx.coroutines.flow.Flow
 
 /**
- * Repository that provides methods for inserting, deleting and retrieving of [GameFavorite] from
- * local databse which is used for storing favorite games picked by the user.
+ * Repository provides methods for inserting, deleting and retrieving of [GameFavorite] from
+ * local database that is used for storing favorite games picked by the user.
  */
 interface GameFavoriteRepository {
     fun getAllGamesStream(): Flow<List<GameFavorite>>

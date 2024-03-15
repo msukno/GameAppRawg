@@ -5,8 +5,8 @@ import com.msukno.gameapprawg.model.Game
 import kotlinx.coroutines.flow.Flow
 
 /**
- * Repository that provides methods for inserting, updating, deleting and retrieving of [Game] from
- * local database which is used for pagination.
+ * Repository provides methods for inserting, updating, deleting and retrieving of [Game] from
+ * local database that is used for pagination.
  */
 interface GameRepository {
     fun gamesByRatingDescAndDateDesc(selectedGenreId: Int, refTime: String): PagingSource<Int, Game>

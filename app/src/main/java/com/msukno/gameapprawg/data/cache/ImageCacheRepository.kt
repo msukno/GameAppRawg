@@ -11,7 +11,7 @@ import com.msukno.gameapprawg.ui.screens.game_list.ImageType
 
 
 /**
- * Repository that provides methods for storing and clearing game and genre images from local cache
+ * Repository provides methods for storing and clearing game and genre images from local cache
  */
 interface ImageCacheRepository {
     fun updateGameCache(gameIDs: List<Int>, imageType: ImageType, gameLocation: GameLocation)

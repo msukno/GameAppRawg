@@ -38,11 +38,12 @@ import com.msukno.gameapprawg.R
 import com.msukno.gameapprawg.SettingsPosition
 import com.msukno.gameapprawg.ui.navigation.NavGraph
 import com.msukno.gameapprawg.ui.screens.app_settings.AppSettingsDestination
+import com.msukno.gameapprawg.ui.screens.app_settings.AppSettingsViewModel
 import com.msukno.gameapprawg.ui.theme.GameAppRawgTheme
 
 @Composable
 fun ListView(
-    startDestination: String,
+    settingsViewModel: AppSettingsViewModel,
     navController: NavHostController = rememberNavController(),
     settingsPosition: SettingsPosition
 ){
@@ -75,7 +76,7 @@ fun ListView(
                 }
             ){ innerPadding ->
                 NavGraph(
-                    startDestination = startDestination,
+                    settingsViewModel = settingsViewModel,
                     navController = navController,
                     modifier = Modifier.padding(innerPadding)
                 )

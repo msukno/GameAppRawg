@@ -17,6 +17,9 @@ import kotlinx.coroutines.withContext
 
 private const val TAG = "GenreCacheWorker"
 
+/**
+ * Worker class for caching genre background images.
+ */
 class GenreCacheWorker(
     val genreRepository: GenreRepository,
     val genreImageRepository: GenreImageRepository,

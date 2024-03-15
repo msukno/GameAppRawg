@@ -5,7 +5,7 @@ import com.msukno.gameapprawg.model.GameImages
 import kotlinx.coroutines.flow.Flow
 
 /**
- * Repository that provides methods for inserting, deleting and retrieving of [GameImages] from
+ * Repository provides methods for inserting, deleting and retrieving of [GameImages] from
  * local database which is used for caching of paths to each game image.
  */
 

@@ -1,18 +1,22 @@
 package com.msukno.gameapprawg.ui.navigation.adaptable
 
+import android.util.Log
 import androidx.compose.runtime.Composable
-import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import com.msukno.gameapprawg.AppViewModelProvider
+import com.msukno.gameapprawg.SettingsPosition
 import com.msukno.gameapprawg.ui.navigation.EntryPointDestination
+import com.msukno.gameapprawg.ui.screens.LoadingScreen
 import com.msukno.gameapprawg.ui.screens.app_settings.AppSettingsDestination
 import com.msukno.gameapprawg.ui.screens.app_settings.AppSettingsScreen
 import com.msukno.gameapprawg.ui.screens.app_settings.AppSettingsViewModel
+import com.msukno.gameapprawg.ui.screens.app_settings.NavGraphUiState
 import com.msukno.gameapprawg.ui.screens.game_details.GameDetailsDestination
 import com.msukno.gameapprawg.ui.screens.game_favorite.GameFavoriteDestination
 import com.msukno.gameapprawg.ui.screens.game_list.GameListDestination
@@ -23,22 +27,36 @@ import com.msukno.gameapprawg.ui.screens.genre_selection.GenreSelectionScreen
 
 @Composable
 fun ListNavGraph(
-    startDestination: String,
+    settingsViewModel: AppSettingsViewModel,
     detailNavController: NavHostController,
+    sessionKey: SettingsPosition,
     listNavController: NavHostController = rememberNavController(),
-    settingsViewModel: AppSettingsViewModel = viewModel(factory = AppViewModelProvider.Factory)
 ){
+    val navGraphState  = settingsViewModel.navGraphUiState.collectAsState()
+    Log.d("ListNavGraph", "BEFORE_LAUNCHED_EFFECT| currentRouteList: ${navGraphState.value}")
+    LaunchedEffect(sessionKey) { listNavController.navigate(EntryPointDestination.route) }
+
     NavHost(
         navController = listNavController,
         startDestination = EntryPointDestination.route,
     ) {
+
         composable(route = EntryPointDestination.route){
-            listNavController.navigate(startDestination)
+            when(val state = navGraphState.value) {
+                is NavGraphUiState.Loading -> LoadingScreen()
+                is NavGraphUiState.Complete -> {
+                    val details = state.navGraphDetails
+                    Log.d("ListNavGraph", "ENTRY_POINT_DESTINATION| SESSION_KEY: $sessionKey, currentRouteList: ${details.startRouteList}")
+                    listNavController.navigate(details.startRouteList)
+                }
+            }
         }
+
         composable(route = GenreSelectionDestination.route){
+            settingsViewModel.updateRouteCompact(GenreSelectionDestination.route)
             GenreSelectionScreen(
                 onGenreSelect = { genreId, genreName ->
-                    settingsViewModel.updateParams(genreId.toString(), genreName)
+                    settingsViewModel.writeParams(genreId.toString(), genreName)
                     listNavController.navigate("${GameListDestination.route}/$genreId/$genreName")
                 }
             )
@@ -50,7 +68,11 @@ fun ListNavGraph(
                 navArgument(GameListDestination.genreIdArg) { type = NavType.IntType },
                 navArgument(GameListDestination.genreNameArg) { type = NavType.StringType }
             )
-        ){
+        ){ entry ->
+            val genreId = entry.arguments?.getInt(GameListDestination.genreIdArg)
+            val genreName = entry.arguments?.getString(GameListDestination.genreNameArg)
+            val route = "${GameListDestination.route}/$genreId/$genreName"
+            settingsViewModel.updateRouteCompact(route)
             GameListScreen(
                 settingsViewModel = settingsViewModel,
                 onGameSelect = { detailNavController.navigate("${GameDetailsDestination.route}/$it")},
@@ -60,6 +82,7 @@ fun ListNavGraph(
         }
 
         composable(route = AppSettingsDestination.route){
+            settingsViewModel.updateRouteCompact(AppSettingsDestination.route)
             AppSettingsScreen(
                 viewModel = settingsViewModel,
                 navigateToGenreSelect = { listNavController.navigate(GenreSelectionDestination.route) },

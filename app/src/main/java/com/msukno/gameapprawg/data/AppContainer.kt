@@ -26,7 +26,7 @@ import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 
 /**
- * App container for Dependency injection.
+ * App container for dependency injection.
  */
 
 interface AppContainer {
@@ -43,7 +43,8 @@ interface AppContainer {
 
 class DefaultAppContainer(private val context: Context): AppContainer {
     private val BASE_URL = "https://api.rawg.io/api/"
-    private val API_KEY = "dd794e5567ba474b91c9032df6604276"
+    //private val API_KEY = "dd794e5567ba474b91c9032df6604276"
+    private val API_KEY = "0015edf62f4348069eada1361e0ab161"
 
     private val client = OkHttpClient.Builder()
         .addInterceptor { chain ->

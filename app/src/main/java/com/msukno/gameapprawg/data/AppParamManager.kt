@@ -3,7 +3,7 @@ package com.msukno.gameapprawg.data
 import android.content.Context
 
 /**
- * Provides methods for loading and writing game parameters to SharedPreferences
+ * Provides methods for loading and writing game parameters to SharedPreferences file
  */
 interface AppParamManager {
     suspend fun loadParams(params: Map<String, String>): Map<String, String>

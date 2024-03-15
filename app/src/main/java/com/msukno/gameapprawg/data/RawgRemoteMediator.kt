@@ -29,7 +29,7 @@ class RawgRemoteMediator(
     private val sortKey: GameSortKey,
 ): RemoteMediator<Int, Game>() {
 
-    // Function to load data. This function is called when the PagingSource needs more data.
+    // Function to load data. This function is called when the PagingSource is running out of data.
     override suspend fun load(loadType: LoadType, state: PagingState<Int, Game>): MediatorResult {
         // Determine the page key based on the load type
         val pageKey = when (loadType) {

@@ -5,7 +5,7 @@ import com.msukno.gameapprawg.model.Genre
 import kotlinx.coroutines.flow.Flow
 
 /**
- * Repository that provides methods for inserting, deleting and retrieving of [Genre] from
+ * Repository provides methods for inserting, deleting and retrieving of [Genre] from
  * local database.
  */
 interface GenreRepository {

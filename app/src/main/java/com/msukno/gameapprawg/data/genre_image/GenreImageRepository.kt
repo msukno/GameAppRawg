@@ -5,8 +5,8 @@ import com.msukno.gameapprawg.model.GenreImage
 import kotlinx.coroutines.flow.Flow
 
 /**
- * Repository that provides methods for inserting and retrieving of [GenreImage] from
- * local database which is used for caching of paths to each genre image.
+ * Repository provides methods for inserting and retrieving of [GenreImage] from
+ * local database which is used for caching of paths to each genre background image.
  */
 interface GenreImageRepository {
     fun getAllImagesStream(): Flow<List<GenreImage>>

@@ -64,7 +64,4 @@ interface GameDao {
     """)
     suspend fun countGamesWithSameRatingAndLowerId(gameId: Int): Int
 
-    @Query("SELECT * FROM games ORDER BY rating DESC, id ASC LIMIT :size OFFSET :offset")
-    suspend fun getBatch( offset: Int, size: Int): List<Game>
-
 }

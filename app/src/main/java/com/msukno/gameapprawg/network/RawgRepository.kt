@@ -1,13 +1,11 @@
 package com.msukno.gameapprawg.network
 
-import android.util.Log
 import com.msukno.gameapprawg.model.GameDetailsResponse
 import com.msukno.gameapprawg.model.GameResponse
 import com.msukno.gameapprawg.model.GameScreenShotResponse
-import com.msukno.gameapprawg.model.Genre
 import com.msukno.gameapprawg.model.GenreDetailsResponse
 import com.msukno.gameapprawg.model.GenreResponse
-import com.msukno.gameapprawg.model.toGenre
+
 
 /**
  * Repository that provides methods for accessing data in RAWG database

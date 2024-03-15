@@ -11,6 +11,10 @@ import kotlinx.coroutines.withContext
 import java.io.File
 
 private const val TAG = "ClearCacheWorker"
+
+/**
+ * Worker class for cache clearing
+ */
 class ClearCacheWorker(
     private val gameRepository: GameRepository,
     private val gameImageRepository: GameImageRepository,
@@ -46,7 +50,7 @@ class ClearCacheWorker(
                 }
                 gameImageRepository.clearCache()
                 gameRepository.clearAll()
-                makeStatusNotification("Done.", applicationContext)
+                makeStatusNotification("Cache cleared.", applicationContext)
                 Result.success()
             }catch (throwable: Throwable){
                 Log.e(TAG, "Error while clearing cache", throwable)
