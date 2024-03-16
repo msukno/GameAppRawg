@@ -1,7 +1,7 @@
 package com.msukno.gameapprawg.ui.adaptable_screen
 
-import android.util.Log
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -29,22 +29,25 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import com.msukno.gameapprawg.LayoutType
 import com.msukno.gameapprawg.R
-import com.msukno.gameapprawg.SettingsPosition
 import com.msukno.gameapprawg.ui.navigation.adaptable.DetailNavGraph
 import com.msukno.gameapprawg.ui.navigation.adaptable.ListNavGraph
+import com.msukno.gameapprawg.ui.screens.app_settings.AppSettingsDestination
 import com.msukno.gameapprawg.ui.screens.app_settings.AppSettingsViewModel
 
 @Composable
 fun ListDetailView(
     settingsViewModel: AppSettingsViewModel,
-    settingsPosition: SettingsPosition,
+    layoutType: LayoutType,
+    listNavController: NavHostController = rememberNavController(),
     detailNavController: NavHostController = rememberNavController()
 ){
     PermanentNavigationDrawer(
         drawerContent = {
-            PermanentDrawerSheet(Modifier.width(300.dp)) {
+            PermanentDrawerSheet(Modifier.width(dimensionResource(id = R.dimen.perma_draw_width))) {
                 NavigationDrawerContent(
+                    listNavController,
                     modifier = Modifier
                         .wrapContentWidth()
                         .fillMaxHeight()
@@ -59,16 +62,17 @@ fun ListDetailView(
         ) {
             Column(Modifier.weight(1f)) {
                 ListNavGraph(
-                    settingsViewModel = settingsViewModel ,
+                    settingsViewModel = settingsViewModel,
+                    listNavController = listNavController,
                     detailNavController = detailNavController,
-                    sessionKey = settingsPosition
+                    layoutType = layoutType
                 )
             }
             Column(Modifier.weight(1f)) {
                 DetailNavGraph(
                     settingsViewModel = settingsViewModel,
                     detailNavControler = detailNavController,
-                    sessionKey = settingsPosition
+                    layoutType = layoutType
                 )
             }
         }
@@ -76,24 +80,26 @@ fun ListDetailView(
 }
 
 @Composable
-fun NavigationDrawerContent(modifier: Modifier){
-    Column(modifier = modifier){
+fun NavigationDrawerContent(
+    navControler: NavHostController,
+    modifier: Modifier
+){
+    Column(modifier = modifier
+    ){
         AppBarContent(containsSettings = false)
         Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.padding_small)))
         Row(
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier
                 .fillMaxWidth()
+                .clickable { navControler.navigate(AppSettingsDestination.route) }
         ){
-            IconButton(
-                onClick = {  },
-                modifier = Modifier.padding(0.dp)
-            ) {
+            IconButton(onClick = { }) {
                 Icon(
                     imageVector = Icons.Filled.Settings,
                     contentDescription = "",
                     tint = Color.White,
-                    modifier = Modifier.size(30.dp)
+                    modifier = Modifier.size(dimensionResource(id = R.dimen.icon_size_medium))
                 )
             }
              Text(

@@ -2,6 +2,7 @@ package com.msukno.gameapprawg.ui.navigation
 
 import android.util.Log
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
@@ -9,6 +10,7 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
+import com.msukno.gameapprawg.LayoutType
 import com.msukno.gameapprawg.ui.screens.app_settings.AppSettingsDestination
 import com.msukno.gameapprawg.ui.screens.app_settings.AppSettingsScreen
 import com.msukno.gameapprawg.ui.screens.app_settings.AppSettingsViewModel
@@ -35,9 +37,11 @@ object EntryPointDestination: NavigationDestination{
 fun NavGraph(
     settingsViewModel: AppSettingsViewModel,
     navController: NavHostController,
+    layoutType: LayoutType,
     modifier: Modifier = Modifier,
 ){
     val navGraphState = settingsViewModel.navGraphUiState.collectAsState()
+    LaunchedEffect(layoutType) { navController.navigate(EntryPointDestination.route) }
     NavHost(
         navController = navController,
         startDestination = EntryPointDestination.route,
@@ -73,7 +77,6 @@ fun NavGraph(
             val genreId = backStack.arguments?.getInt(GameListDestination.genreIdArg)
             val genreName = backStack.arguments?.getString(GameListDestination.genreNameArg)
             val route = "${GameListDestination.route}/$genreId/$genreName"
-            Log.d("NavGraph", "updateNavGraphRouteList: $route")
             settingsViewModel.updateRouteList(route)
             GameListScreen(
                 settingsViewModel = settingsViewModel,

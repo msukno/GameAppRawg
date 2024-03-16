@@ -18,15 +18,4 @@
     <string name="releasedDesc">RelDesc</string>
     <string name="apply">Apply</string>
     <string name="clear_cache">Clear cache</string>
-
-
-    <string name="gta_des">The game is played from a third-person perspective and its world is
-        navigated on foot or by vehicle. The open world design lets the player freely roam San
-        Andreas, consisting of three metropolitan cities: Los Santos, San Fierro, and Las Venturas,
-        based on Los Angeles, San Francisco, and Las Vegas, respectively. The narrative is based on
-        multiple real-life events in Los Angeles, including the Bloods and Crips street gang rivalry,
-        1990s crack epidemic, 1992 Los Angeles riots, and the Rampart scandal. The game was released
-        in October 2004 for the PlayStation 2, and in 2005 for Windows and the Xbox. Enhanced versions
-        were released in the 2010s, followed by a remastered version in 2021.
-    </string>
 </resources>

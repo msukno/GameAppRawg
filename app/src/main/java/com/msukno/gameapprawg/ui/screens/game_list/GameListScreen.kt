@@ -1,7 +1,5 @@
 package com.msukno.gameapprawg.ui.screens.game_list
 
-
-import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -29,7 +27,6 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -60,7 +57,6 @@ import com.msukno.gameapprawg.model.GameImages
 import com.msukno.gameapprawg.ui.navigation.NavigationDestination
 import com.msukno.gameapprawg.ui.screens.app_settings.AppCacheUiState
 import com.msukno.gameapprawg.ui.screens.app_settings.AppSettingsViewModel
-import com.msukno.gameapprawg.ui.theme.GameAppRawgTheme
 
 
 object GameListDestination: NavigationDestination {
@@ -91,6 +87,7 @@ fun GameListScreen(
     }
 
     GameListBody(
+
         games = pagingItems,
         genreId = uiState.params.genreId,
         genre = genreName,

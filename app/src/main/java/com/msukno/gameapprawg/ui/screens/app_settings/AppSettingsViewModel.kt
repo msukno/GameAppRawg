@@ -18,7 +18,8 @@ import kotlinx.coroutines.launch
 
 
 /**
- * ViewModel responsible for managing the application parameters and cache.
+ * ViewModel responsible for managing of the application parameters, navigation routes for different
+ * layouts and image cache.
  */
 
 class AppSettingsViewModel(
@@ -29,9 +30,11 @@ class AppSettingsViewModel(
         const val GENRE_ID_KEY = "genreID"
         const val GENRE_NAME_KEY = "genreName"
     }
-
+    //State holding the current navigation routes for all layouts.
+    // Navigation graphs read this state to maintain the same route after configuration changes
     private val _navGraphUiState = MutableStateFlow<NavGraphUiState>(NavGraphUiState.Loading)
     val navGraphUiState: StateFlow<NavGraphUiState> = _navGraphUiState
+    //State used to reset the pager after cache clearing
     var cacheState: AppCacheUiState by mutableStateOf(AppCacheUiState.Default)
 
     init {
@@ -48,8 +51,8 @@ class AppSettingsViewModel(
         }
     }
 
-
-    fun loadInitRoute(){
+    //Load the initial route on app startup
+    private fun loadInitRoute(){
         viewModelScope.launch {
             val loadedParams = paramManager.loadParams(mapOf(GENRE_ID_KEY to "", GENRE_NAME_KEY to ""))
             val idKey: String = checkNotNull(loadedParams[GENRE_ID_KEY])
@@ -68,6 +71,7 @@ class AppSettingsViewModel(
         }
     }
 
+    //Save route for compact and list layouts
     fun updateRouteCompact(newRoute: String){
         when(val state = navGraphUiState.value){
             is NavGraphUiState.Complete ->
@@ -75,6 +79,7 @@ class AppSettingsViewModel(
             else -> {}
         }
     }
+    //Save route for list column in list-detail layout
     fun updateRouteList(newRoute: String){
         when(val state = navGraphUiState.value){
             is NavGraphUiState.Complete ->
@@ -82,6 +87,7 @@ class AppSettingsViewModel(
             else -> {}
         }
     }
+    //Save route for detail column in list-detail layout
     fun updateRouteDetail(newRoute: String){
         when(val state = navGraphUiState.value){
             is NavGraphUiState.Complete ->

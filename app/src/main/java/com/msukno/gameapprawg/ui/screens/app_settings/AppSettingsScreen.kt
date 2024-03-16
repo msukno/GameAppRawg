@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.DateRange
@@ -86,9 +87,9 @@ fun AppSettingsScreen(
                 imageVector = Icons.Filled.KeyboardArrowLeft,
                 contentDescription = "",
                 tint = MaterialTheme.colorScheme.onBackground,
-                modifier = Modifier.size(40.dp)
+                modifier = Modifier.size(dimensionResource(id = R.dimen.icon_size_medium))
             )
-            Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.padding_medium)))
+            Spacer(modifier = Modifier.width(dimensionResource(id = R.dimen.padding_medium)))
             Text(
                 text = "Genre selection",
                 style = MaterialTheme.typography.headlineMedium
@@ -106,9 +107,9 @@ fun AppSettingsScreen(
                 imageVector = Icons.Filled.DateRange,
                 contentDescription = "",
                 tint = MaterialTheme.colorScheme.onBackground,
-                modifier = Modifier.size(40.dp)
+                modifier = Modifier.size(dimensionResource(id = R.dimen.icon_size_medium))
             )
-            Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.padding_medium)))
+            Spacer(modifier = Modifier.width(dimensionResource(id = R.dimen.padding_medium)))
             Text(
                 text = "Manage cache",
                 style = MaterialTheme.typography.headlineMedium

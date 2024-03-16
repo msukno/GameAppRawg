@@ -8,7 +8,7 @@ import com.msukno.gameapprawg.ui.adaptable_screen.ListDetailView
 import com.msukno.gameapprawg.ui.adaptable_screen.ListView
 import com.msukno.gameapprawg.ui.screens.app_settings.AppSettingsViewModel
 
-enum class SettingsPosition{
+enum class LayoutType{
     TopBar, NavigationRail, PermanentNavigationDrawer
 }
 
@@ -18,23 +18,23 @@ fun GameApp(
     settingsViewModel: AppSettingsViewModel = viewModel(factory = AppViewModelProvider.Factory)
 ){
 
-    val settingsPosition: SettingsPosition = when (windowSize) {
+    val layoutType: LayoutType = when (windowSize) {
         WindowWidthSizeClass.Compact -> {
-            SettingsPosition.TopBar
+            LayoutType.TopBar
         }
         WindowWidthSizeClass.Medium -> {
-            SettingsPosition.NavigationRail
+            LayoutType.NavigationRail
         }
         WindowWidthSizeClass.Expanded -> {
-            SettingsPosition.PermanentNavigationDrawer
+            LayoutType.PermanentNavigationDrawer
         }
         else -> {
-            SettingsPosition.TopBar
+            LayoutType.TopBar
         }
     }
 
-    if(settingsPosition == SettingsPosition.PermanentNavigationDrawer)
-        ListDetailView(settingsViewModel, settingsPosition)
+    if(layoutType == LayoutType.PermanentNavigationDrawer)
+        ListDetailView(settingsViewModel, layoutType)
     else
-        ListView(settingsViewModel, settingsPosition = settingsPosition)
+        ListView(settingsViewModel, layoutType)
 }

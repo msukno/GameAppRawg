@@ -8,15 +8,11 @@
     <dimen name="padding_extra_large">48dp</dimen>
     <dimen name="back_image_height">150dp</dimen>
     <dimen name="screen_image_height">250dp</dimen>
+    <dimen name="perma_draw_width">300dp</dimen>
     <dimen name="button_padding_small">2dp</dimen>
     <dimen name="icon_size_large">62dp</dimen>
     <dimen name="icon_size">48dp</dimen>
     <dimen name="icon_size_small">24dp</dimen>
     <dimen name="icon_size_medium">32dp</dimen>
     <dimen name="line_thick">2dp</dimen>
-    <dimen name="image_size">46dp</dimen>
-    <dimen name="image_size2">40dp</dimen>
-    <dimen name="noteCard_round_corner">15dp</dimen>
-    <dimen name="noteCard_border">1dp</dimen>
-    <dimen name="card_elevation">6dp</dimen>
 </resources>

@@ -22,7 +22,7 @@ private const val RETRY_DELAY_MILLIS = 1500L
 private const val TAG = "RawgDataLoader"
 
 /**
- * Data loader class which uses RawgRepository for fetching game and genre data from RAWG database.
+ * Data loader class that uses RawgRepository for fetching game and genre data from RAWG database.
  */
 class RawgDataLoader(private val rawgRepository: RawgRepository){
 
@@ -55,7 +55,7 @@ class RawgDataLoader(private val rawgRepository: RawgRepository){
                 genreId = genreId,
                 prevIndex = extractPageKey(gameResponse.previous),
                 nextIndex = extractPageKey(gameResponse.next),
-                currentTime = HelperFunctions.dateTimeByThirdOfDay(),
+                currentTime = HelperFunctions.dateTimeByThirdOfDay(), //games are refreshed every 8 hours by default
                 sortKey = sortKey
             )
         }

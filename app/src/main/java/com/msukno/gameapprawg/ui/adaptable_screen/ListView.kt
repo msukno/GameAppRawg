@@ -34,8 +34,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import com.msukno.gameapprawg.LayoutType
 import com.msukno.gameapprawg.R
-import com.msukno.gameapprawg.SettingsPosition
 import com.msukno.gameapprawg.ui.navigation.NavGraph
 import com.msukno.gameapprawg.ui.screens.app_settings.AppSettingsDestination
 import com.msukno.gameapprawg.ui.screens.app_settings.AppSettingsViewModel
@@ -44,12 +44,12 @@ import com.msukno.gameapprawg.ui.theme.GameAppRawgTheme
 @Composable
 fun ListView(
     settingsViewModel: AppSettingsViewModel,
+    layoutType: LayoutType,
     navController: NavHostController = rememberNavController(),
-    settingsPosition: SettingsPosition
 ){
     Box{
         Row(modifier = Modifier.fillMaxSize()) {
-            AnimatedVisibility(visible = settingsPosition == SettingsPosition.NavigationRail) {
+            AnimatedVisibility(visible = layoutType == LayoutType.NavigationRail) {
                 NavigationRail(modifier = Modifier
                     .padding(top = dimensionResource(id = R.dimen.padding_extra_small))
                 ){
@@ -71,13 +71,14 @@ fun ListView(
             }
             Scaffold(
                 topBar = { GameAppBar(
-                    containsSettings = settingsPosition == SettingsPosition.TopBar,
+                    containsSettings = layoutType == LayoutType.TopBar,
                     navigateToSettings = { navController.navigate(AppSettingsDestination.route) })
                 }
             ){ innerPadding ->
                 NavGraph(
                     settingsViewModel = settingsViewModel,
                     navController = navController,
+                    layoutType = layoutType,
                     modifier = Modifier.padding(innerPadding)
                 )
             }
@@ -136,23 +137,20 @@ fun AppBarContent(
         }
         Text(
             text = annotatedString,
-            //text = stringResource(R.string.app_title),
             style = MaterialTheme.typography.displayLarge,
             modifier = Modifier
                 .weight(5f)
                 .padding(4.dp)
         )
-        //Spacer(modifier = Modifier.width(20.dp))
         if (containsSettings){
             IconButton(
                 onClick = { onClickSettings() },
-                modifier = Modifier.padding(0.dp)
             ) {
                 Icon(
                     imageVector = Icons.Filled.Settings,
                     contentDescription = "",
                     tint = Color.White,
-                    modifier = Modifier.size(30.dp)
+                    modifier = Modifier.size(dimensionResource(id = R.dimen.icon_size_medium))
                 )
             }
         }

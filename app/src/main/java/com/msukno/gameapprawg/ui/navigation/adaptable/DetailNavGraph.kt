@@ -1,6 +1,5 @@
 package com.msukno.gameapprawg.ui.navigation.adaptable
 
-import android.util.Log
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -9,7 +8,7 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
-import com.msukno.gameapprawg.SettingsPosition
+import com.msukno.gameapprawg.LayoutType
 import com.msukno.gameapprawg.ui.navigation.EntryPointDestination
 import com.msukno.gameapprawg.ui.screens.LoadingScreen
 import com.msukno.gameapprawg.ui.screens.app_settings.AppSettingsViewModel
@@ -25,10 +24,10 @@ import com.msukno.gameapprawg.ui.screens.game_search.GameSearchScreen
 fun DetailNavGraph(
     settingsViewModel: AppSettingsViewModel,
     detailNavControler: NavHostController,
-    sessionKey: SettingsPosition
+    layoutType: LayoutType
 ){
     val navGraphState  = settingsViewModel.navGraphUiState.collectAsState()
-    LaunchedEffect(sessionKey) { detailNavControler.navigate(EntryPointDestination.route) }
+    LaunchedEffect(layoutType) { detailNavControler.navigate(EntryPointDestination.route) }
     NavHost(
         navController = detailNavControler,
         startDestination = EntryPointDestination.route,
@@ -38,7 +37,6 @@ fun DetailNavGraph(
                 is NavGraphUiState.Loading -> LoadingScreen()
                 is NavGraphUiState.Complete -> {
                     val details = state.navGraphDetails
-                    Log.d("DetailNavGraph", "ENTRY_POINT_DESTINATION| SESSION_KEY: $sessionKey, currentRouteList: ${details.startRouteDetail}")
                     detailNavControler.navigate(details.startRouteDetail)
                 }
             }

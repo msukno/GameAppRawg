@@ -1,6 +1,5 @@
 package com.msukno.gameapprawg.ui.screens.game_list
 
-import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -64,7 +63,7 @@ class GameListViewModel(
                 pageSize = PAGE_SIZE,
                 genreId = genreId,
                 validityPeriod = HelperFunctions.dateTimeByThirdOfDay(),
-                sortKeys = listOf(GameSortKey.ratingDESC, GameSortKey.releasedDESC)
+                sortKeys = listOf(GameSortKey.ratingDESC)
             )
         )
     )

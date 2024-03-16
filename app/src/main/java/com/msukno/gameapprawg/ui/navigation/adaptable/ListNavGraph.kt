@@ -1,6 +1,5 @@
 package com.msukno.gameapprawg.ui.navigation.adaptable
 
-import android.util.Log
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -10,7 +9,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import com.msukno.gameapprawg.SettingsPosition
+import com.msukno.gameapprawg.LayoutType
 import com.msukno.gameapprawg.ui.navigation.EntryPointDestination
 import com.msukno.gameapprawg.ui.screens.LoadingScreen
 import com.msukno.gameapprawg.ui.screens.app_settings.AppSettingsDestination
@@ -28,13 +27,12 @@ import com.msukno.gameapprawg.ui.screens.genre_selection.GenreSelectionScreen
 @Composable
 fun ListNavGraph(
     settingsViewModel: AppSettingsViewModel,
+    listNavController: NavHostController,
     detailNavController: NavHostController,
-    sessionKey: SettingsPosition,
-    listNavController: NavHostController = rememberNavController(),
+    layoutType: LayoutType
 ){
     val navGraphState  = settingsViewModel.navGraphUiState.collectAsState()
-    Log.d("ListNavGraph", "BEFORE_LAUNCHED_EFFECT| currentRouteList: ${navGraphState.value}")
-    LaunchedEffect(sessionKey) { listNavController.navigate(EntryPointDestination.route) }
+    LaunchedEffect(layoutType) { listNavController.navigate(EntryPointDestination.route) }
 
     NavHost(
         navController = listNavController,
@@ -46,7 +44,6 @@ fun ListNavGraph(
                 is NavGraphUiState.Loading -> LoadingScreen()
                 is NavGraphUiState.Complete -> {
                     val details = state.navGraphDetails
-                    Log.d("ListNavGraph", "ENTRY_POINT_DESTINATION| SESSION_KEY: $sessionKey, currentRouteList: ${details.startRouteList}")
                     listNavController.navigate(details.startRouteList)
                 }
             }
