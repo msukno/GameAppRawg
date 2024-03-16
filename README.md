@@ -3,6 +3,7 @@
 # RAWG Game App 🎮
  
 This is a gaming application that offers users experience in exploring and discovering games. This application is designed with a dual focus on providing fresh data when an internet connection is available and ensuring a good user experience even in offline mode by leveraging an caching system.
+Application UI adapts to both mobile and tablet screens.
 
 ## Table of Contents 📚
 
