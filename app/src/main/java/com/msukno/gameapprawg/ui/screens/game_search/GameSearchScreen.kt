@@ -31,6 +31,7 @@ import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.msukno.gameapprawg.AppViewModelProvider
 import com.msukno.gameapprawg.R
@@ -38,7 +39,6 @@ import com.msukno.gameapprawg.ui.navigation.NavigationDestination
 import com.msukno.gameapprawg.ui.screens.LoadingScreen
 import com.msukno.gameapprawg.ui.screens.game_list.GameCard
 import kotlinx.coroutines.delay
-
 object GameSearchDestination: NavigationDestination{
     override val route: String = "GameSearch"
     override val titleResource: Int = 0
@@ -54,10 +54,17 @@ fun GameSearchScreen(
     navigateBack: () -> Unit = {},
     showBackIcon: Boolean = true
 ){
-    val uiState = viewModel.uiState.collectAsState()
+
+    val uiState = viewModel.uiState.collectAsStateWithLifecycle()
     val focusRequester = remember { FocusRequester() }
     val keyboard = LocalSoftwareKeyboardController.current
     var inputQuery by remember{ mutableStateOf("") }
+
+    LaunchedEffect(focusRequester) {
+        focusRequester.requestFocus()
+        delay(100)
+        keyboard?.show()
+    }
 
     Column(
         modifier = Modifier.padding(top = dimensionResource(id = R.dimen.padding_small))
@@ -112,11 +119,6 @@ fun GameSearchScreen(
                 .padding(dimensionResource(id = R.dimen.padding_small))
                 .focusRequester(focusRequester)
         )
-    }
-    LaunchedEffect(focusRequester) {
-        focusRequester.requestFocus()
-        delay(100)
-        keyboard?.show()
     }
 }
 

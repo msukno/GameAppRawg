@@ -51,4 +51,4 @@ class GameFavoriteViewModel(
 /**
  * UI state for the favorite games. It holds a list of favorite games to be displayed on the UI.
  */
-class GameFavoriteUiState(val games: List<GameFavorite> = listOf())
+data class GameFavoriteUiState(val games: List<GameFavorite> = listOf())

@@ -3,7 +3,6 @@ package com.msukno.gameapprawg.ui.navigation
 import android.util.Log
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
@@ -25,7 +24,7 @@ import com.msukno.gameapprawg.ui.screens.game_search.GameSearchScreen
 import com.msukno.gameapprawg.ui.screens.genre_selection.GenreSelectionDestination
 import com.msukno.gameapprawg.ui.screens.genre_selection.GenreSelectionScreen
 import com.msukno.gameapprawg.ui.screens.LoadingScreen
-import com.msukno.gameapprawg.ui.screens.app_settings.NavGraphUiState
+import com.msukno.gameapprawg.ui.screens.app_settings.InitRouteUiState
 
 
 object EntryPointDestination: NavigationDestination{
@@ -40,7 +39,7 @@ fun NavGraph(
     layoutType: LayoutType,
     modifier: Modifier = Modifier,
 ){
-    val navGraphState = settingsViewModel.navGraphUiState.collectAsState()
+    val initRouteState = settingsViewModel.initRouteUiState
     LaunchedEffect(layoutType) { navController.navigate(EntryPointDestination.route) }
     NavHost(
         navController = navController,
@@ -48,11 +47,12 @@ fun NavGraph(
         modifier = modifier
     ) {
         composable(route = EntryPointDestination.route){
-            when(val state = navGraphState.value) {
-                is NavGraphUiState.Loading -> LoadingScreen()
-                is NavGraphUiState.Complete -> {
-                    val details = state.navGraphDetails
-                    navController.navigate(details.startRouteCompact)
+            when(val state = initRouteState) {
+                is InitRouteUiState.Loading -> LoadingScreen()
+                is InitRouteUiState.Complete -> {
+                    navController.navigate(
+                        settingsViewModel.currentRoute.currentRouteCompact ?: state.initialRoute
+                    )
                 }
             }
         }
@@ -77,6 +77,7 @@ fun NavGraph(
             val genreId = backStack.arguments?.getInt(GameListDestination.genreIdArg)
             val genreName = backStack.arguments?.getString(GameListDestination.genreNameArg)
             val route = "${GameListDestination.route}/$genreId/$genreName"
+            Log.d("NAV GRAPH", "GAME LIST DESTINATION")
             settingsViewModel.updateRouteList(route)
             GameListScreen(
                 settingsViewModel = settingsViewModel,

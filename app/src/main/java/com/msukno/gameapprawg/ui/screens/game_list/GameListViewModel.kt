@@ -1,8 +1,5 @@
 package com.msukno.gameapprawg.ui.screens.game_list
 
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.setValue
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -12,7 +9,10 @@ import com.msukno.gameapprawg.data.game_image.GameImageRepository
 import com.msukno.gameapprawg.model.GameImages
 import com.msukno.gameapprawg.network.RawgRepository
 import com.msukno.gameapprawg.utils.HelperFunctions
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 
@@ -52,7 +52,7 @@ class GameListViewModel(
     val genreName : String = checkNotNull(savedStateHandle[GameListDestination.genreNameArg])
 
     // The initial UI state for pagination
-    var uiState by mutableStateOf(
+    private val _uiState: MutableStateFlow<GameListUiState> = MutableStateFlow(
         GameListUiState(
             gameRepository = gameRepository,
             rawgRepository = rawgRepository,
@@ -67,7 +67,7 @@ class GameListViewModel(
             )
         )
     )
-        private set
+    val uiState: StateFlow<GameListUiState> = _uiState
 
     init {
         viewModelScope.launch {
@@ -82,13 +82,15 @@ class GameListViewModel(
      * Updates the UI state with the new parameters for fetching and sorting games.
      */
     fun updateUiState(params: GameListParams){
-        uiState = GameListUiState(
-            gameRepository = gameRepository,
-            rawgRepository = rawgRepository,
-            cacheRepository = cacheRepository,
-            scope = viewModelScope,
-            params = params
-        )
+        _uiState.update {
+            GameListUiState(
+                gameRepository = gameRepository,
+                rawgRepository = rawgRepository,
+                cacheRepository = cacheRepository,
+                scope = viewModelScope,
+                params = params
+            )
+        }
     }
 
     /**

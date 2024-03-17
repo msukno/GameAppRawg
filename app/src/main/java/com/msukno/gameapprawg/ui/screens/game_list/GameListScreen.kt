@@ -44,6 +44,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
@@ -76,29 +77,30 @@ fun GameListScreen(
     navigateToSearch: (Int) -> Unit = {},
     navigateToFavorites: () -> Unit = {}
 ){
-    val uiState = viewModel.uiState
+    val uiState = viewModel.uiState.collectAsStateWithLifecycle()
     val genreName = viewModel.genreName
-    val pagingItems = uiState.gameList.collectAsLazyPagingItems()
+    val pagingItems = uiState.value.gameList.collectAsLazyPagingItems()
     val imageCache = viewModel.imagePathsCache
+    val params = uiState.value.params
 
     if (settingsViewModel.cacheState is AppCacheUiState.Cleared){
         settingsViewModel.cacheState = AppCacheUiState.Default
-        viewModel.updateUiState(uiState.params.copy())
+        viewModel.updateUiState(params.copy())
     }
 
     GameListBody(
 
         games = pagingItems,
-        genreId = uiState.params.genreId,
+        genreId = params.genreId,
         genre = genreName,
         imageCache = imageCache,
-        initSortKeys = uiState.params.sortKeys,
+        initSortKeys = params.sortKeys,
         onGameSelect = onGameSelect,
         onClickFavorite = navigateToFavorites,
         onClickSearch = navigateToSearch,
         applySort = {
             if (it.isNotEmpty()){
-                viewModel.updateUiState(uiState.params.copy(sortKeys = it))
+                viewModel.updateUiState(params.copy(sortKeys = it))
             }
         }
     )

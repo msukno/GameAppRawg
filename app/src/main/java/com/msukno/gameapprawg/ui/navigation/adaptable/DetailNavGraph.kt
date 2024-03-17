@@ -2,7 +2,6 @@ package com.msukno.gameapprawg.ui.navigation.adaptable
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
@@ -12,7 +11,7 @@ import com.msukno.gameapprawg.LayoutType
 import com.msukno.gameapprawg.ui.navigation.EntryPointDestination
 import com.msukno.gameapprawg.ui.screens.LoadingScreen
 import com.msukno.gameapprawg.ui.screens.app_settings.AppSettingsViewModel
-import com.msukno.gameapprawg.ui.screens.app_settings.NavGraphUiState
+import com.msukno.gameapprawg.ui.screens.app_settings.InitRouteUiState
 import com.msukno.gameapprawg.ui.screens.game_details.GameDetailsDestination
 import com.msukno.gameapprawg.ui.screens.game_details.GameDetailsScreen
 import com.msukno.gameapprawg.ui.screens.game_favorite.GameFavoriteDestination
@@ -26,18 +25,19 @@ fun DetailNavGraph(
     detailNavControler: NavHostController,
     layoutType: LayoutType
 ){
-    val navGraphState  = settingsViewModel.navGraphUiState.collectAsState()
+    val initRouteState = settingsViewModel.initRouteUiState
     LaunchedEffect(layoutType) { detailNavControler.navigate(EntryPointDestination.route) }
     NavHost(
         navController = detailNavControler,
         startDestination = EntryPointDestination.route,
     ) {
         composable(route = EntryPointDestination.route){
-            when(val state = navGraphState.value) {
-                is NavGraphUiState.Loading -> LoadingScreen()
-                is NavGraphUiState.Complete -> {
-                    val details = state.navGraphDetails
-                    detailNavControler.navigate(details.startRouteDetail)
+            when(val state = initRouteState) {
+                is InitRouteUiState.Loading -> LoadingScreen()
+                is InitRouteUiState.Complete -> {
+                    detailNavControler.navigate(
+                        settingsViewModel.currentRoute.currentRouteDetail ?: GameFavoriteDestination.route
+                    )
                 }
             }
         }

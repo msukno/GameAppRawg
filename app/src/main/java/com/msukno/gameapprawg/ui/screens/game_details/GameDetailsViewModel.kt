@@ -55,6 +55,15 @@ class GameDetailsViewModel(
     private var favorite = false
 
     init {
+        loadGameDetails()
+    }
+
+    /**
+     * Load details of the game whose ID equals to above obtained gameId. First try loading game
+     * details from the local cache. Also try loading fresh game details from the web. Depending on the result,
+     * refresh the data or keep the old data if any.
+     */
+    private fun loadGameDetails(){
         viewModelScope.launch {
             // Fetch all game image paths and load them in memory
             gameImageRepository.getAllImagesStream().first().let{ imagesList ->
@@ -103,6 +112,7 @@ class GameDetailsViewModel(
             }
         }
     }
+
     /**
      * Updates the UI state with the new game details.
      */
@@ -112,8 +122,8 @@ class GameDetailsViewModel(
 
     /**
      * Updates the favorites.
-     * If the game is already in the favorites list, it removes the game from the list.
-     * If the game is not in the favorites list, it adds the game to the list and updates the cache.
+     * If the game is already in the favorites list, remove it from the list.
+     * If the game is not in the favorites list, add it to the list and update the cache.
      */
     fun updateFavorites(){
         viewModelScope.launch {

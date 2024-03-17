@@ -22,6 +22,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.msukno.gameapprawg.AppViewModelProvider
 import com.msukno.gameapprawg.R
@@ -40,7 +41,7 @@ fun GameFavoriteScreen(
     navigateBack: () -> Unit = {},
     showBackIcon: Boolean = true
 ){
-    val uiState = viewModel.favGamesUiState.collectAsState()
+    val uiState = viewModel.favGamesUiState.collectAsStateWithLifecycle()
     val games = uiState.value.games
     val imgCache = viewModel.imagePathsCache
 

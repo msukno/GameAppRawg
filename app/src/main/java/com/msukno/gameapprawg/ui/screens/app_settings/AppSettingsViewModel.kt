@@ -1,5 +1,6 @@
 package com.msukno.gameapprawg.ui.screens.app_settings
 
+import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -30,20 +31,20 @@ class AppSettingsViewModel(
         const val GENRE_ID_KEY = "genreID"
         const val GENRE_NAME_KEY = "genreName"
     }
-    //State holding the current navigation routes for all layouts.
-    // Navigation graphs read this state to maintain the same route after configuration changes
-    private val _navGraphUiState = MutableStateFlow<NavGraphUiState>(NavGraphUiState.Loading)
-    val navGraphUiState: StateFlow<NavGraphUiState> = _navGraphUiState
-    //State used to reset the pager after cache clearing
+
+    // Holds the current route for each layout. Used for maintaining the same route after
+    // configuration change
+    var currentRoute = CurrentRoute()
+    var initRouteUiState: InitRouteUiState by mutableStateOf(InitRouteUiState.Loading) //Initial route
+        private set
+
+    //Resets the pager after cache clearing
     var cacheState: AppCacheUiState by mutableStateOf(AppCacheUiState.Default)
 
     init {
         loadInitRoute()
     }
 
-    fun updateNavGraphUiState(details: NavGraphDetails){
-        _navGraphUiState.update { NavGraphUiState.Complete(details) }
-    }
     fun writeParams(newGenreId: String, newGenreName: String){
         viewModelScope.launch {
             // Write the new parameters to shared preferences
@@ -63,37 +64,17 @@ class AppSettingsViewModel(
             }catch (throwable: Throwable){
                 GenreSelectionDestination.route
             }
-            updateNavGraphUiState(NavGraphDetails(
-                startRouteCompact = startingRoute,
-                startRouteList = startingRoute,
-                startRouteDetail = GameFavoriteDestination.route
-            ))
+            initRouteUiState = InitRouteUiState.Complete(startingRoute)
         }
     }
-
-    //Save route for compact and list layouts
-    fun updateRouteCompact(newRoute: String){
-        when(val state = navGraphUiState.value){
-            is NavGraphUiState.Complete ->
-                updateNavGraphUiState(state.navGraphDetails.copy(startRouteCompact = newRoute))
-            else -> {}
-        }
+    fun updateRouteCompact(route: String){
+        currentRoute = currentRoute.copy(currentRouteCompact = route)
     }
-    //Save route for list column in list-detail layout
-    fun updateRouteList(newRoute: String){
-        when(val state = navGraphUiState.value){
-            is NavGraphUiState.Complete ->
-                    updateNavGraphUiState(state.navGraphDetails.copy(startRouteList = newRoute))
-            else -> {}
-        }
+    fun updateRouteList(route: String){
+        currentRoute = currentRoute.copy(currentRouteList = route)
     }
-    //Save route for detail column in list-detail layout
-    fun updateRouteDetail(newRoute: String){
-        when(val state = navGraphUiState.value){
-            is NavGraphUiState.Complete ->
-                    updateNavGraphUiState(state.navGraphDetails.copy(startRouteDetail = newRoute))
-            else -> {}
-        }
+    fun updateRouteDetail(route: String){
+        currentRoute = currentRoute.copy(currentRouteDetail = route)
     }
 
     fun clearCache(){
@@ -104,15 +85,15 @@ class AppSettingsViewModel(
     }
 }
 
-data class NavGraphDetails(
-    val startRouteCompact: String,
-    val startRouteList: String,
-    val startRouteDetail: String
+data class CurrentRoute(
+    val currentRouteCompact: String? = null,
+    val currentRouteList: String? = null,
+    val currentRouteDetail: String? = null
 )
 
-sealed interface NavGraphUiState {
-    object Loading : NavGraphUiState
-    data class Complete(val navGraphDetails: NavGraphDetails) : NavGraphUiState
+sealed interface InitRouteUiState {
+    object Loading : InitRouteUiState
+    data class Complete(val initialRoute: String) : InitRouteUiState
 }
 
 sealed interface AppCacheUiState {

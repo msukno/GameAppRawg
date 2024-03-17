@@ -38,6 +38,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.msukno.gameapprawg.R
 import com.msukno.gameapprawg.model.GenreImage
 import com.msukno.gameapprawg.ui.navigation.NavigationDestination
@@ -56,7 +57,7 @@ fun GenreSelectionScreen(
     genreViewModel: GenreSelectionViewModel = viewModel(factory = AppViewModelProvider.Factory),
     onGenreSelect: (Int, String) -> Unit = { _,_ -> }
 ){
-    val uiState = genreViewModel.genreUiState.collectAsState()
+    val uiState = genreViewModel.genreUiState.collectAsStateWithLifecycle()
     val imageCache = genreViewModel.imagePathsCache
 
 
