@@ -21,9 +21,9 @@ private const val TAG = "GenreCacheWorker"
  * Worker class for caching genre background images.
  */
 class GenreCacheWorker(
-    val genreRepository: GenreRepository,
-    val genreImageRepository: GenreImageRepository,
-    val imageDownloader: ImageDownloader,
+    private val genreRepository: GenreRepository,
+    private val genreImageRepository: GenreImageRepository,
+    private val imageDownloader: ImageDownloader,
     val context: Context,
     params: WorkerParameters
 ) : CoroutineWorker(context, params){

@@ -77,7 +77,6 @@ fun NavGraph(
             val genreId = backStack.arguments?.getInt(GameListDestination.genreIdArg)
             val genreName = backStack.arguments?.getString(GameListDestination.genreNameArg)
             val route = "${GameListDestination.route}/$genreId/$genreName"
-            Log.d("NAV GRAPH", "GAME LIST DESTINATION")
             settingsViewModel.updateRouteList(route)
             GameListScreen(
                 settingsViewModel = settingsViewModel,

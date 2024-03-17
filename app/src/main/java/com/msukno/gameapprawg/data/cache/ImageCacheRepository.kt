@@ -6,8 +6,8 @@ import androidx.work.ExistingWorkPolicy
 import androidx.work.OneTimeWorkRequest
 import androidx.work.WorkManager
 import com.msukno.gameapprawg.data.AppParamManager
+import com.msukno.gameapprawg.ui.screens.common.ImageType
 import com.msukno.gameapprawg.ui.screens.game_details.GameLocation
-import com.msukno.gameapprawg.ui.screens.game_list.ImageType
 
 
 /**

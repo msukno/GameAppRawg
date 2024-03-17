@@ -16,7 +16,7 @@ import com.msukno.gameapprawg.model.GameImages
 import com.msukno.gameapprawg.model.toGameDetails
 import com.msukno.gameapprawg.network.RawgDataLoader
 import com.msukno.gameapprawg.network.RawgRepository
-import com.msukno.gameapprawg.ui.screens.game_list.ImageType
+import com.msukno.gameapprawg.ui.screens.common.ImageType
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 
@@ -61,7 +61,7 @@ class GameDetailsViewModel(
     /**
      * Load details of the game whose ID equals to above obtained gameId. First try loading game
      * details from the local cache. Also try loading fresh game details from the web. Depending on the result,
-     * refresh the data or keep the old data if any.
+     * refresh the data or keep the old data (if any).
      */
     private fun loadGameDetails(){
         viewModelScope.launch {
@@ -93,7 +93,7 @@ class GameDetailsViewModel(
             if (gameInFavorite != null) {
                 gameDetails?.let { freshDetails ->
                     gameFavoriteRepository.insertAllGames(listOf(freshDetails.toGameFavorite()))
-                    cacheRepository.updateGameCache(listOf(gameId), ImageType.screenshot,
+                    cacheRepository.updateGameCache(listOf(gameId), ImageType.Screenshot,
                         GameLocation.favorites_table
                     )
                 }
@@ -104,7 +104,7 @@ class GameDetailsViewModel(
                             description = freshDetails.description,
                             screenshots = freshDetails.screenshots
                         )))
-                        cacheRepository.updateGameCache(listOf(gameId), ImageType.screenshot,
+                        cacheRepository.updateGameCache(listOf(gameId), ImageType.Screenshot,
                             GameLocation.games_table
                         )
                     }
@@ -133,7 +133,7 @@ class GameDetailsViewModel(
             if(currentFavoriteState) gameFavoriteRepository.removeGame(gameId)
             else {
                 gameFavoriteRepository.insertAllGames(listOf(stateComplete.gameDetails.toGameFavorite()))
-                cacheRepository.updateGameCache(listOf(gameId), ImageType.screenshot,
+                cacheRepository.updateGameCache(listOf(gameId), ImageType.Screenshot,
                     GameLocation.favorites_table
                 )
             }

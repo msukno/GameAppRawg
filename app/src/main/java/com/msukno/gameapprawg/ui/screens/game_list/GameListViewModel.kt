@@ -8,6 +8,7 @@ import com.msukno.gameapprawg.data.game.GameRepository
 import com.msukno.gameapprawg.data.game_image.GameImageRepository
 import com.msukno.gameapprawg.model.GameImages
 import com.msukno.gameapprawg.network.RawgRepository
+import com.msukno.gameapprawg.ui.screens.common.GameSortKey
 import com.msukno.gameapprawg.utils.HelperFunctions
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -19,18 +20,6 @@ import kotlinx.coroutines.launch
 // Pagination params
 private const val START_PAGE_KEY = "1"
 private const val PAGE_SIZE = 12
-
-// Sort types
-enum class GameSortKey(var value: String) {
-    ratingDESC(value = "-rating"),
-    releasedDESC(value = "-released"),
-}
-
-// Cache image types
-enum class ImageType{
-    screenshot,
-    background
-}
 
 /**
  * ViewModel for the GameList screen. It fetches games from the local database and provides them
@@ -63,7 +52,7 @@ class GameListViewModel(
                 pageSize = PAGE_SIZE,
                 genreId = genreId,
                 validityPeriod = HelperFunctions.dateTimeByThirdOfDay(),
-                sortKeys = listOf(GameSortKey.ratingDESC)
+                sortKeys = listOf(GameSortKey.RatingDESC)
             )
         )
     )
@@ -90,15 +79,6 @@ class GameListViewModel(
                 scope = viewModelScope,
                 params = params
             )
-        }
-    }
-
-    /**
-     * Clears the games in the local database.
-     */
-    fun clearCache(){
-        viewModelScope.launch {
-            gameRepository.clearAll()
         }
     }
 }

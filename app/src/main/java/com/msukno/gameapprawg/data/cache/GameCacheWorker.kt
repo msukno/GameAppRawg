@@ -14,8 +14,8 @@ import com.msukno.gameapprawg.data.game_favorite.GameFavoriteRepository
 import com.msukno.gameapprawg.data.game_image.GameImageRepository
 import com.msukno.gameapprawg.model.GameImages
 import com.msukno.gameapprawg.model.toGame
+import com.msukno.gameapprawg.ui.screens.common.ImageType
 import com.msukno.gameapprawg.ui.screens.game_details.GameLocation
-import com.msukno.gameapprawg.ui.screens.game_list.ImageType
 import com.msukno.gameapprawg.utils.HelperFunctions
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -59,7 +59,7 @@ class GameCacheWorker(
                 //Download and cache images from the web. Also update the placeholders based on image type
                 games.forEach { game ->
                     imgsPlaceholder[game.id]?.let { placeholder ->
-                        if(imageType == ImageType.background){
+                        if(imageType == ImageType.Background){
                             val backgroundImage = downloadImage(url = game.backgroundImage)
                             backgroundImage?.let { bitmap ->
                                 val path = saveImage(bitmap, "gameBackground-${game.id}.jpeg")
@@ -102,7 +102,7 @@ class GameCacheWorker(
         val cachedImages = gameImageRepository.getImagesWithIds(ids)
         val cachedIds = cachedImages.map { it.gameId}
 
-        val imgsExpired = if (imageType == ImageType.background)
+        val imgsExpired = if (imageType == ImageType.Background)
             cachedImages.filter { it.backRefreshTime != timeNow }
         else cachedImages.filter { it.screenRefreshTime != timeNow }
 

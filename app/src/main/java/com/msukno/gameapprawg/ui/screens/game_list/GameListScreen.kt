@@ -40,6 +40,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.dimensionResource
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -58,6 +59,8 @@ import com.msukno.gameapprawg.model.GameImages
 import com.msukno.gameapprawg.ui.navigation.NavigationDestination
 import com.msukno.gameapprawg.ui.screens.app_settings.AppCacheUiState
 import com.msukno.gameapprawg.ui.screens.app_settings.AppSettingsViewModel
+import com.msukno.gameapprawg.ui.screens.common.GameSortKey
+import com.msukno.gameapprawg.ui.screens.common.ImageType
 
 
 object GameListDestination: NavigationDestination {
@@ -348,12 +351,12 @@ fun SortOptionsMenu(
     ) {
         FilterChipWrapper(
             sortKeyCollection = keyList,
-            sortKey = GameSortKey.ratingDESC,
+            sortKey = GameSortKey.RatingDESC,
             name = stringResource(id = R.string.rating)
         )
         FilterChipWrapper(
             sortKeyCollection = keyList,
-            sortKey = GameSortKey.releasedDESC,
+            sortKey = GameSortKey.ReleasedDESC,
             name = stringResource(id = R.string.releasedDesc)
         )
 
@@ -439,12 +442,21 @@ fun GameListBotBar(
 }
 
 @Composable
-fun DisplayImageFromWeb(url: String, type: ImageType = ImageType.background) {
+fun DisplayImageFromWeb(url: String, type: ImageType = ImageType.Background) {
     val modifier = Modifier.fillMaxWidth()
-    val finalModifier = if (type == ImageType.background)
+    val finalModifier = if (type == ImageType.Background)
         modifier.height(dimensionResource(id = R.dimen.back_image_height))
     else modifier.height(dimensionResource(id = R.dimen.screen_image_height))
 
+    var isLoading by remember { mutableStateOf(false) }
+    if (isLoading){
+        Image(
+            painter = painterResource(id = R.drawable.image_loading),
+            contentDescription = "Image not loaded icon",
+            contentScale = ContentScale.Crop,
+            modifier = finalModifier
+        )
+    }
     AsyncImage(
         model = ImageRequest.Builder(LocalContext.current)
             .data(url)
@@ -452,14 +464,17 @@ fun DisplayImageFromWeb(url: String, type: ImageType = ImageType.background) {
             .build(),
         contentDescription = "Game image from web",
         contentScale = ContentScale.Crop,
-        modifier = finalModifier
+        modifier = finalModifier,
+        onLoading = { isLoading = true },
+        onSuccess = { isLoading = false },
+        onError = { isLoading = true }
     )
 }
 
 @Composable
-fun DisplayImageFromStorage(path: String, type: ImageType = ImageType.background) {
+fun DisplayImageFromStorage(path: String, type: ImageType = ImageType.Background) {
     val modifier = Modifier.fillMaxWidth()
-    val finalModifier = if (type == ImageType.background)
+    val finalModifier = if (type == ImageType.Background)
         modifier.height(dimensionResource(id = R.dimen.back_image_height))
     else modifier.height(dimensionResource(id = R.dimen.screen_image_height))
     Image(

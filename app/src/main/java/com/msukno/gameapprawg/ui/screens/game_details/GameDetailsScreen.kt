@@ -41,9 +41,9 @@ import com.msukno.gameapprawg.R
 import com.msukno.gameapprawg.data.database.Converters
 import com.msukno.gameapprawg.ui.navigation.NavigationDestination
 import com.msukno.gameapprawg.ui.screens.LoadingScreen
+import com.msukno.gameapprawg.ui.screens.common.ImageType
 import com.msukno.gameapprawg.ui.screens.game_list.DisplayImageFromStorage
 import com.msukno.gameapprawg.ui.screens.game_list.DisplayImageFromWeb
-import com.msukno.gameapprawg.ui.screens.game_list.ImageType
 import org.jsoup.Jsoup
 
 object GameDetailsDestination: NavigationDestination{
@@ -201,10 +201,10 @@ fun GameDetailsBody(
     Column(){
         cachedScreenshots?.let { screenshots ->
             screenshots.forEach { path ->
-                DisplayImageFromStorage(path = path, type = ImageType.screenshot)
+                DisplayImageFromStorage(path = path, type = ImageType.Screenshot)
             }
         } ?: gameDetails.screenshots.forEach{
-            DisplayImageFromWeb(url = it, type = ImageType.screenshot)
+            DisplayImageFromWeb(url = it, type = ImageType.Screenshot)
         }
     }
 }

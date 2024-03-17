@@ -5,8 +5,8 @@ import com.msukno.gameapprawg.model.Game
 import com.msukno.gameapprawg.model.Genre
 import com.msukno.gameapprawg.model.toGame
 import com.msukno.gameapprawg.model.toGenre
+import com.msukno.gameapprawg.ui.screens.common.GameSortKey
 import com.msukno.gameapprawg.ui.screens.game_details.GameDetails
-import com.msukno.gameapprawg.ui.screens.game_list.GameSortKey
 import com.msukno.gameapprawg.utils.HelperFunctions
 import kotlinx.coroutines.delay
 import okhttp3.HttpUrl.Companion.toHttpUrl
@@ -117,7 +117,7 @@ class RawgDataLoader(private val rawgRepository: RawgRepository){
                         prevIndex = null,
                         nextIndex = null,
                         currentTime = HelperFunctions.dateTimeByThirdOfDay(),
-                        sortKey = GameSortKey.ratingDESC
+                        sortKey = GameSortKey.RatingDESC
                     ) }
                 result.addAll(validGames)
                 if(result.size > gameThreshold || pagesSearched > pageLimit) return result.toList()
