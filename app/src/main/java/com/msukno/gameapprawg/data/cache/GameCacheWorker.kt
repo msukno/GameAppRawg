@@ -14,8 +14,8 @@ import com.msukno.gameapprawg.data.game_favorite.GameFavoriteRepository
 import com.msukno.gameapprawg.data.game_image.GameImageRepository
 import com.msukno.gameapprawg.model.GameImages
 import com.msukno.gameapprawg.model.toGame
-import com.msukno.gameapprawg.ui.screens.common.ImageType
-import com.msukno.gameapprawg.ui.screens.game_details.GameLocation
+import com.msukno.gameapprawg.ui.common.GameLocation
+import com.msukno.gameapprawg.ui.common.ImageType
 import com.msukno.gameapprawg.utils.HelperFunctions
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -30,9 +30,8 @@ private const val MIN_IMAGE_SIZE = 896
  */
 class GameCacheWorker(
     val gameRepository: GameRepository,
-    val gameFavoriteRepository: GameFavoriteRepository,
-    val gameImageRepository: GameImageRepository,
-    val paramManager: AppParamManager,
+    private val gameFavoriteRepository: GameFavoriteRepository,
+    private val gameImageRepository: GameImageRepository,
     val context: Context,
     params: WorkerParameters
 ) : CoroutineWorker(context, params){
@@ -50,7 +49,7 @@ class GameCacheWorker(
         return withContext(Dispatchers.IO){
             return@withContext try {
                 //Get games for provided IDs from GameRepository or GameFavoriteRepository
-                val games = if(gameLocation == GameLocation.games_table) gameRepository.findGamesByIds(idList)
+                val games = if(gameLocation == GameLocation.GamesTable) gameRepository.findGamesByIds(idList)
                 else gameFavoriteRepository.findGamesByIds(idList).map { it.toGame() }
                 val imgsToCache: MutableList<GameImages> = mutableListOf()
                 val timeNow = HelperFunctions.dateTimeByDay()

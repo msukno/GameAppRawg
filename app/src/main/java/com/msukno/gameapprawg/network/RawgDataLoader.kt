@@ -5,7 +5,7 @@ import com.msukno.gameapprawg.model.Game
 import com.msukno.gameapprawg.model.Genre
 import com.msukno.gameapprawg.model.toGame
 import com.msukno.gameapprawg.model.toGenre
-import com.msukno.gameapprawg.ui.screens.common.GameSortKey
+import com.msukno.gameapprawg.ui.common.GameSortKey
 import com.msukno.gameapprawg.ui.screens.game_details.GameDetails
 import com.msukno.gameapprawg.utils.HelperFunctions
 import kotlinx.coroutines.delay
@@ -106,7 +106,8 @@ class RawgDataLoader(private val rawgRepository: RawgRepository){
                     ordering = "-rating", searchPrecise = true, searchExact = true, search = query
                 )
             }
-            //gameResponse==null if there is no internet access or if an error occurs
+
+            //gameResponse=null if there is no internet access or if an error occurs
             gameResponse?.let { response ->
                 pagesSearched++
                 val validGames = response.results.filter {

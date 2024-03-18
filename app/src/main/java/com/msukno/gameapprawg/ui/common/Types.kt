@@ -1,4 +1,4 @@
-package com.msukno.gameapprawg.ui.screens.common
+package com.msukno.gameapprawg.ui.common
 
 // Sort types
 enum class GameSortKey(var value: String) {
@@ -10,4 +10,10 @@ enum class GameSortKey(var value: String) {
 enum class ImageType{
     Screenshot,
     Background
+}
+
+
+// Game data location
+enum class GameLocation{
+    GamesTable, FavoritesTable
 }

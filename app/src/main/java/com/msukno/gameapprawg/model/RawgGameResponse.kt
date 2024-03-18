@@ -1,6 +1,6 @@
 package com.msukno.gameapprawg.model
 
-import com.msukno.gameapprawg.ui.screens.common.GameSortKey
+import com.msukno.gameapprawg.ui.common.GameSortKey
 import kotlinx.serialization.Serializable
 
 @Serializable

@@ -5,10 +5,8 @@ import androidx.work.Data
 import androidx.work.ExistingWorkPolicy
 import androidx.work.OneTimeWorkRequest
 import androidx.work.WorkManager
-import com.msukno.gameapprawg.data.AppParamManager
-import com.msukno.gameapprawg.ui.screens.common.ImageType
-import com.msukno.gameapprawg.ui.screens.game_details.GameLocation
-
+import com.msukno.gameapprawg.ui.common.GameLocation
+import com.msukno.gameapprawg.ui.common.ImageType
 
 /**
  * Repository provides methods for storing and clearing game and genre images from local cache
@@ -24,7 +22,7 @@ private const val GENRE_WORK_NAME = "GenreCacheWork"
 private const val CLEAR_WORK_NAME = "ClearCacheWork"
 const val IMG_CACHE_DIR = "img_cache"
 
-class ImageCacheManager(val context: Context, val paramManager: AppParamManager) : ImageCacheRepository {
+class ImageCacheManager(context: Context) : ImageCacheRepository {
 
     private val workManager = WorkManager.getInstance(context)
 

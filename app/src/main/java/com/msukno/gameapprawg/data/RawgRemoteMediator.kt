@@ -9,9 +9,9 @@ import com.msukno.gameapprawg.data.cache.ImageCacheRepository
 import com.msukno.gameapprawg.data.game.GameRepository
 import com.msukno.gameapprawg.model.Game
 import com.msukno.gameapprawg.network.RawgDataLoader
-import com.msukno.gameapprawg.ui.screens.common.GameSortKey
-import com.msukno.gameapprawg.ui.screens.common.ImageType
-import com.msukno.gameapprawg.ui.screens.game_details.GameLocation
+import com.msukno.gameapprawg.ui.common.GameLocation
+import com.msukno.gameapprawg.ui.common.GameSortKey
+import com.msukno.gameapprawg.ui.common.ImageType
 import retrofit2.HttpException
 import java.io.IOException
 
@@ -68,7 +68,7 @@ class RawgRemoteMediator(
             // Insert the updated games into the local database
             gameRepository.insert(updatedGames)
             // Update the image cache
-            cacheRepository.updateGameCache(updatedGames.map { it.id }, ImageType.Background, GameLocation.games_table)
+            cacheRepository.updateGameCache(updatedGames.map { it.id }, ImageType.Background, GameLocation.GamesTable)
             MediatorResult.Success(endOfPaginationReached = false)
         }catch (e: HttpException) {
             Log.d("RemoteMediator", "HttpException: ${e.message}")

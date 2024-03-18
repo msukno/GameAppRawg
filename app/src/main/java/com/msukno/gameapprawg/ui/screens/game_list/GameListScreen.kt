@@ -59,8 +59,8 @@ import com.msukno.gameapprawg.model.GameImages
 import com.msukno.gameapprawg.ui.navigation.NavigationDestination
 import com.msukno.gameapprawg.ui.screens.app_settings.AppCacheUiState
 import com.msukno.gameapprawg.ui.screens.app_settings.AppSettingsViewModel
-import com.msukno.gameapprawg.ui.screens.common.GameSortKey
-import com.msukno.gameapprawg.ui.screens.common.ImageType
+import com.msukno.gameapprawg.ui.common.GameSortKey
+import com.msukno.gameapprawg.ui.common.ImageType
 
 
 object GameListDestination: NavigationDestination {

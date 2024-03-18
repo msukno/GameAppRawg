@@ -105,6 +105,6 @@ class DefaultAppContainer(private val context: Context): AppContainer {
     }
 
     override val cacheRepository: ImageCacheRepository by lazy {
-        ImageCacheManager(context, paramManager)
+        ImageCacheManager(context)
     }
 }

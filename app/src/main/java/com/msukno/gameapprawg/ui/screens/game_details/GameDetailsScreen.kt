@@ -41,7 +41,7 @@ import com.msukno.gameapprawg.R
 import com.msukno.gameapprawg.data.database.Converters
 import com.msukno.gameapprawg.ui.navigation.NavigationDestination
 import com.msukno.gameapprawg.ui.screens.LoadingScreen
-import com.msukno.gameapprawg.ui.screens.common.ImageType
+import com.msukno.gameapprawg.ui.common.ImageType
 import com.msukno.gameapprawg.ui.screens.game_list.DisplayImageFromStorage
 import com.msukno.gameapprawg.ui.screens.game_list.DisplayImageFromWeb
 import org.jsoup.Jsoup

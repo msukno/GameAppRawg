@@ -16,16 +16,10 @@ import com.msukno.gameapprawg.model.GameImages
 import com.msukno.gameapprawg.model.toGameDetails
 import com.msukno.gameapprawg.network.RawgDataLoader
 import com.msukno.gameapprawg.network.RawgRepository
-import com.msukno.gameapprawg.ui.screens.common.ImageType
+import com.msukno.gameapprawg.ui.common.GameLocation
+import com.msukno.gameapprawg.ui.common.ImageType
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
-
-/**
- * Enum class for the location of the game data.
- */
-enum class GameLocation{
-    games_table, favorites_table, unknown
-}
 
 /**
  * ViewModel for the GameDetails screen. It fetches game details from the local database and the RAWG,
@@ -94,7 +88,7 @@ class GameDetailsViewModel(
                 gameDetails?.let { freshDetails ->
                     gameFavoriteRepository.insertAllGames(listOf(freshDetails.toGameFavorite()))
                     cacheRepository.updateGameCache(listOf(gameId), ImageType.Screenshot,
-                        GameLocation.favorites_table
+                        GameLocation.FavoritesTable
                     )
                 }
             }else{
@@ -105,7 +99,7 @@ class GameDetailsViewModel(
                             screenshots = freshDetails.screenshots
                         )))
                         cacheRepository.updateGameCache(listOf(gameId), ImageType.Screenshot,
-                            GameLocation.games_table
+                            GameLocation.GamesTable
                         )
                     }
                 }
@@ -134,7 +128,7 @@ class GameDetailsViewModel(
             else {
                 gameFavoriteRepository.insertAllGames(listOf(stateComplete.gameDetails.toGameFavorite()))
                 cacheRepository.updateGameCache(listOf(gameId), ImageType.Screenshot,
-                    GameLocation.favorites_table
+                    GameLocation.FavoritesTable
                 )
             }
         }

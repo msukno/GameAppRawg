@@ -23,8 +23,7 @@ import com.msukno.gameapprawg.data.genre_image.GenreImageRepository
 class GameWorkerFactory(
     private val gameRepository: GameRepository,
     private val gameFavoriteRepository: GameFavoriteRepository,
-    private val gameImageRepository: GameImageRepository,
-    private val paramManager: AppParamManager
+    private val gameImageRepository: GameImageRepository
     ) : WorkerFactory(){
     override fun createWorker(
         appContext: Context,
@@ -38,7 +37,6 @@ class GameWorkerFactory(
                     gameRepository,
                     gameFavoriteRepository,
                     gameImageRepository,
-                    paramManager,
                     appContext,
                     workerParameters
                 )

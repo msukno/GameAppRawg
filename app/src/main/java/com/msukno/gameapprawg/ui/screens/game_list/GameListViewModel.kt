@@ -8,7 +8,7 @@ import com.msukno.gameapprawg.data.game.GameRepository
 import com.msukno.gameapprawg.data.game_image.GameImageRepository
 import com.msukno.gameapprawg.model.GameImages
 import com.msukno.gameapprawg.network.RawgRepository
-import com.msukno.gameapprawg.ui.screens.common.GameSortKey
+import com.msukno.gameapprawg.ui.common.GameSortKey
 import com.msukno.gameapprawg.utils.HelperFunctions
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

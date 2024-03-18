@@ -24,8 +24,7 @@ class RawgGameApplication: Application(), Configuration.Provider {
         factory.addFactory(GameWorkerFactory(
             container.gameRepository,
             container.gameFavoriteRepository,
-            container.gameImageRepository,
-            container.paramManager
+            container.gameImageRepository
         ))
         factory.addFactory(GenreWorkerFactory(
             container.genreRepository,

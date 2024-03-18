@@ -11,7 +11,7 @@ import com.msukno.gameapprawg.data.game.GameRepository
 import com.msukno.gameapprawg.model.Game
 import com.msukno.gameapprawg.network.RawgDataLoader
 import com.msukno.gameapprawg.network.RawgRepository
-import com.msukno.gameapprawg.ui.screens.common.GameSortKey
+import com.msukno.gameapprawg.ui.common.GameSortKey
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
 import java.lang.IllegalArgumentException
