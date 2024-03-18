@@ -45,23 +45,4 @@ interface GameDao {
 
     @Query("SELECT COUNT(*) FROM games")
     suspend fun gamesSize(): Int
-
-    @Query("SELECT COUNT(*) FROM games WHERE sortKeys LIKE '-rating'")
-    suspend fun countGamesRatingSortKey(): Int
-
-    @Query("SELECT COUNT(*) FROM games WHERE sortKeys LIKE 'name'")
-    suspend fun countGamesNameSortKey(): Int
-
-    @Query("""
-        SELECT COUNT(*) FROM games 
-        WHERE rating > (SELECT rating FROM games WHERE id = :gameId)
-    """)
-    suspend fun countGamesWithHigherRating(gameId: Int): Int
-
-    @Query("""
-        SELECT COUNT(*) FROM games
-        WHERE rating = (SELECT rating FROM games WHERE id = :gameId) AND id < :gameId
-    """)
-    suspend fun countGamesWithSameRatingAndLowerId(gameId: Int): Int
-
 }
